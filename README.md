@@ -65,7 +65,3 @@ The project is currently under development. Here's a roadmap of planned features
 ## Support
 
 For questions, issues, or feature requests, please contact [Bourgeo282@gmail.com](mailto:Bourgeo282@gmail.com).
-
----
-
-Stay tuned for updates as Lavendar evolves into a comprehensive spending tracking app! If you have any questions or need further assistance, feel free to reach out.
