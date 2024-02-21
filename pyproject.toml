@@ -1,0 +1,15 @@
+# pyproject.toml
+
+[tool.poetry]
+name = "travel-data-retrieval"
+version = "0.1.0"
+description = "This project is meant for pulling in travel data and interacting with it in a flask based web app"
+authors = ["Chris Bourgeois <Bourgeo282@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.28.2"
+flask - "flask-3.0.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0.1"
