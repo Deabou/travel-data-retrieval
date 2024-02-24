@@ -1,12 +1,12 @@
 # travel-data-retrieval
 
-This repository is dedicated to a Flask-based web API project that retrieves travel data from the Expedia API. The retrieved data is initially stored in an S3 bucket and then accessed by the web application as an intermediary for user interaction.
+This repository is dedicated to a Flask-based web API project that retrieves travel data from the amadeus API. The retrieved data is initially stored in an S3 bucket and then accessed by the web application as an intermediary for user interaction.
 
 ## Project Structure
 
 The project is structured as follows:
 
-- **api**: Contains modules for interacting with the Expedia API.
+- **api**: Contains modules for interacting with the amadeus API.
 - **web_app**: Includes files for the Flask-based web application.
 - **s3_interaction**: Manages interactions with the S3 bucket for storing and retrieving travel data.
 
@@ -56,7 +56,7 @@ Contributions to the project are welcome! If you'd like to contribute, please fo
 
 The project is currently under development. Here's a roadmap of planned features:
 
-- Implement data retrieval from Expedia API.
+- Implement data retrieval from amadeus API.
 - Store retrieved data in S3 bucket.
 - Develop Flask-based web API for interacting with the data.
 - Enhance security features for handling sensitive data.
