@@ -9,7 +9,7 @@ authors = ["Chris Bourgeois <Bourgeo282@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 requests = "^2.28.2"
-flask - "flask-3.0.2"
+flask = "flask-3.0.2"
 
 
 [tool.poetry.dev-dependencies]
