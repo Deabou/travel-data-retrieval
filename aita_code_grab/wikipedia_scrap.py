@@ -40,7 +40,7 @@ class WikipediaAirportScraper:
     )
 
     @staticmethod
-    def _scrape_table_data(table):
+    def scrape_table_data(table):
         table_data = []
         rows = table.find_all("tr")
         for row in rows:
@@ -56,7 +56,7 @@ class WikipediaAirportScraper:
         soup = BeautifulSoup(response.text, "html.parser")
         tables = soup.find_all("table")
         if tables:
-            return cls._scrape_table_data(tables[0])
+            return cls.scrape_table_data(tables[0])
         else:
             return None
 
@@ -65,7 +65,6 @@ class WikipediaAirportScraper:
         scraped_data = {}
         for letter in Alphabet:
             url = cls.BASE_URL.format(letter=letter.value)
-            print(f"Scraping data from {url}...")
             data = cls.scrape_data_from_wikipedia(url)
             if data:
                 scraped_data[letter.value] = data
