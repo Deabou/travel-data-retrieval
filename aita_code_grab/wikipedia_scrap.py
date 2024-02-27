@@ -1,6 +1,37 @@
+import json
+from enum import Enum
+
 import requests
 from bs4 import BeautifulSoup
-import json
+
+
+class Alphabet(Enum):
+    A = "A"
+    B = "B"
+    C = "C"
+    D = "D"
+    E = "E"
+    F = "F"
+    G = "G"
+    H = "H"
+    I = "I"
+    J = "J"
+    K = "K"
+    L = "L"
+    M = "M"
+    N = "N"
+    O = "O"
+    P = "P"
+    Q = "Q"
+    R = "R"
+    S = "S"
+    T = "T"
+    U = "U"
+    V = "V"
+    W = "W"
+    X = "X"
+    Y = "Y"
+    Z = "Z"
 
 
 class WikipediaAirportScraper:
@@ -32,12 +63,17 @@ class WikipediaAirportScraper:
     @classmethod
     def scrape_and_convert_to_json(cls):
         scraped_data = {}
-        for letter in range(65, 90):  # ASCII values for A to Z
-            url = cls.BASE_URL.format(letter=chr(letter))
+        for letter in Alphabet:
+            url = cls.BASE_URL.format(letter=letter.value)
             print(f"Scraping data from {url}...")
             data = cls.scrape_data_from_wikipedia(url)
             if data:
-                scraped_data[chr(letter)] = data
+                scraped_data[letter.value] = data
             else:
-                print(f"No tables found on the page for letter {chr(letter)}.")
+                print(f"No tables found on the page for letter {letter.value}.")
         return json.dumps(scraped_data)
+
+
+scrapper = WikipediaAirportScraper()
+json_data = scrapper.scrape_and_convert_to_json()
+print(json_data)
