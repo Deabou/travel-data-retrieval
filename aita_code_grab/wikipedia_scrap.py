@@ -3,35 +3,7 @@ from enum import Enum
 
 import requests
 from bs4 import BeautifulSoup
-
-
-class Alphabet(Enum):
-    A = "A"
-    B = "B"
-    C = "C"
-    D = "D"
-    E = "E"
-    F = "F"
-    G = "G"
-    H = "H"
-    I = "I"
-    J = "J"
-    K = "K"
-    L = "L"
-    M = "M"
-    N = "N"
-    O = "O"
-    P = "P"
-    Q = "Q"
-    R = "R"
-    S = "S"
-    T = "T"
-    U = "U"
-    V = "V"
-    W = "W"
-    X = "X"
-    Y = "Y"
-    Z = "Z"
+from string import ascii_uppercase
 
 
 class WikipediaAirportScraper:
@@ -39,40 +11,50 @@ class WikipediaAirportScraper:
         "https://en.wikipedia.org/wiki/List_of_airports_by_IATA_airport_code:_{letter}"
     )
 
-    @staticmethod
-    def scrape_table_data(table):
-        table_data = []
-        rows = table.find_all("tr")
-        for row in rows:
-            columns = row.find_all("td")
-            row_data = [column.text.strip() for column in columns]
-            if row_data:
-                table_data.append(row_data)
-        return table_data
 
-    @classmethod
-    def scrape_data_from_wikipedia(cls, url):
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser")
-        tables = soup.find_all("table")
-        if tables:
-            return cls.scrape_table_data(tables[0])
-        else:
-            return None
+@staticmethod
+def scrape_table_data(table):
+    table_data = []
+    rows = table.find_all("tr")
+    for row in rows:
+        columns = row.find_all("td")
+        row_data = [column.text.strip() for column in columns]
+        if row_data:
+            table_data.append(row_data)
+    return table_data
 
-    @classmethod
-    def scrape_and_convert_to_json(cls):
-        scraped_data = {}
-        for letter in Alphabet:
-            url = cls.BASE_URL.format(letter=letter.value)
-            data = cls.scrape_data_from_wikipedia(url)
-            if data:
-                scraped_data[letter.value] = data
-            else:
-                print(f"No tables found on the page for letter {letter.value}.")
-        return json.dumps(scraped_data)
+
+@staticmethod
+def scrape_data_from_url(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    tables = soup.find_all("table")
+    if tables:
+        return tables[0]
+    else:
+        return None
+
+
+@classmethod
+def scrape_data_for_letter(cls, letter):
+    url = cls.BASE_URL.format(letter=letter)
+    table = cls.scrape_data_from_url(url)
+    if table:
+        return cls.scrape_table_data(table)
+    else:
+        print(f"No tables found on the page for letter {letter}.")
+        return []
+
+
+@classmethod
+def convert_to_json(cls):
+    scraped_data = {}
+    for letter in ascii_uppercase:
+        data = cls.scrape_data_for_letter(letter)
+        scraped_data[letter] = data
+    return json.dumps(scraped_data)
 
 
 scrapper = WikipediaAirportScraper()
-json_data = scrapper.scrape_and_convert_to_json()
+json_data = scrapper.convert_to_json()
 print(json_data)
